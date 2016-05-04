@@ -1,16 +1,16 @@
 %% @author zhangz
-%% @doc @todo Add description to sum.
+%% @doc @todo Add description to list.
 
 
--module(sum).
+-module(list).
 -behaviour(application).
--export([start/2, stop/1]).
+-export([start/2, stop/1, list/1]).
 
 %% ====================================================================
 %% API functions
 %% ====================================================================
--export([]).
--export([sum/1,sum/2]).
+-export([reverse_list/1]).
+
 
 
 %% ====================================================================
@@ -44,18 +44,18 @@ stop(State) ->
 %% ====================================================================
 %% Internal functions
 %% ====================================================================
-sum_acc(Index,N,Sum) when Index =< N ->
-	sum_acc(Index+1,N,Index+Sum);
-sum_acc(_I,_B,Sum) ->
-	Sum.
 
-sum(N) ->
-	sum_acc(1,N,0).
-
-sum(N,M) ->
-	 sum_acc(N,M,0).
+list(N)  -> 
+	list_acc(N,[]).
+list_acc(N,T) when N > 0 ->
+	list_acc(N-1,[N|T]); 
+list_acc(N,T) ->
+	T.
 
 
-
-
-	
+reverse_list(N) ->
+	reverse_list(N,1,[]).
+reverse_list(N,I,T) when N>0 ->
+	reverse_list(N-1,I+1,[I|T]); %%[NULL|T] error! [T|NUILL] correct!
+reverse_list(N,I,T) ->
+	T.
